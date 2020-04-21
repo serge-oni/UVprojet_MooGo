@@ -1,0 +1,8 @@
+{
+  "name": "moogo",
+  "integrations": {
+    "capacitor": {},
+    "cordova": {}
+  },
+  "type": "angular"
+}

@@ -1,0 +1,239 @@
+
+
+<ion-header>
+  <ion-item lines="none"  slot="fixed" color="light">
+    <ion-button (click)="presentModal()" fill="clear"  size="large"   id="title"> 
+      <ion-icon ios="ios-contact" md="md-contact" ></ion-icon>MooGo
+    </ion-button>
+   
+    <ion-button  (click)="logout()" fill="clear" slot="end" color="dark">
+      <ion-icon slot="icon-only"  name="log-out" ></ion-icon>
+    </ion-button>
+  </ion-item>
+</ion-header>
+<ion-fab vertical="bottom" horizontal="end" slot="fixed">
+  <ion-fab-button (click)="accepte_Add_Agence()" size="small"  color="warning">
+    <img src="../../assets/home.png"/>
+  </ion-fab-button>
+
+  <ion-fab-button size="small" color="warning">
+    <img src="../../assets/search (3).png"/>
+  </ion-fab-button>
+  
+  <ion-fab-button (click)="accepte_trajet()" size="small" color="warning" >
+    <img src="../../assets/send (1).png"/>
+  </ion-fab-button>
+  <ion-icon name="bus-sharp"    ></ion-icon>
+</ion-fab> 
+<ion-content>
+  <div *ngIf="first_stape">
+            <div *ngIf="!connected_" >
+                            <div *ngIf="method != meth">
+                            <div lines="none" *ngFor="let user of users" >
+                              <ion-item lines="none" text-wrap  *ngIf="user.ide == email" color="warning"  >
+                                      <ion-avatar slot="start">
+                                          <img [src]="user.photo"/>
+                                      </ion-avatar>
+                                      <ion-label text-wrap>
+                                              <p> {{ email }}</p>
+                                                <p>{{  user.name }}</p>
+                                                <p>{{ method }}</p>
+                                                
+                                      </ion-label>
+                              </ion-item>
+                          </div>
+                          </div>
+                        <div *ngIf="method==meth" >
+                          <div *ngFor="let tra of agences">
+                            <div  *ngIf="tra.adm === email">
+
+                                  <ion-item lines="none" text-wrap color="warning" >
+                                                <ion-avatar slot="start">
+                                                  <img [src]="tra.photoo"/>
+                                                </ion-avatar>
+                                                <ion-label>
+                                                    <p>{{ email }}</p>
+                                                    <p>{{ method }}</p>
+                                                </ion-label>
+                                        </ion-item>
+                                      </div>
+                                    </div>
+                                  </div>
+                                     
+                               
+
+                
+                             
+
+                              <!--pôur enregistrer un agence po-->
+                              <div *ngIf="add_agence">
+                                <ion-item lines="none">
+                                  <img src="../../assets/2796253.jpg"/>
+                                </ion-item>
+                                <ion-item>   
+                                    <ion-label position="floating"><p>Nom</ion-label>
+                                    <ion-input type="text" [(ngModel)]="agence.nom"></ion-input>
+                                </ion-item>
+                                <ion-item>
+                                    <ion-label position="floating"><p>Slogan</p></ion-label>
+                                    <ion-input type="text" [(ngModel)]="agence.slogan"></ion-input>
+                                </ion-item>
+                                <ion-item  lines="none">
+                                    <ion-button  (click)="add_Agence()" slot="start">Ok</ion-button>
+                                </ion-item>
+
+                                <ion-button (click)="addPhoto()" color="tertiary" expand="block">
+                                  <ion-icon name="image" slot="start"></ion-icon>
+                                  Ouvrir la bibliothèque
+                                </ion-button>
+                                <div class="flex">
+                                  <div class="img-box">
+                                    <img [src]="image">
+                                  </div>
+                                </div>
+
+                            
+                                <ion-button (click)="addPhoto('camera')" color="secondary" expand="block">
+                                  <ion-icon name="camera" slot="start"></ion-icon>
+                                  Prendre une photo
+                                </ion-button>
+                                <ion-button (click)="uploadFirebase()" color="warning"  expand="block">
+                                  <ion-icon name="cloud-upload" slot="start"></ion-icon>
+                                  Envoyer la photo
+                                </ion-button>
+
+
+                            
+                              </div>
+                              <!--pour publier un trajet-->
+                              <div *ngIf="add_Trajet">
+                                <ion-item lines="none">
+                                  <img src="../../assets/3582346.jpg"/>
+                                </ion-item>
+                                <ion-item>
+                                    <ion-label position="floating"><ion-icon name="megaphone-outline"></ion-icon><p>Ville de depart</p></ion-label>
+                                    <ion-input type="text" [(ngModel)]="trajet.debut"></ion-input>
+                                </ion-item>
+                                <ion-item>
+                                    <ion-label position="floating"><ion-icon name="options-outline"></ion-icon><p>ville d'arriver</p></ion-label>
+                                    <ion-input type="text" [(ngModel)]="trajet.fin"></ion-input>
+                                </ion-item>
+                                <ion-item>
+                                  <ion-label position="floating"><ion-icon name="options-outline"></ion-icon><p>Date et d'heure</p></ion-label>
+                                  <ion-datetime displayFormat="MMM DD, YYYY H:m" [(ngModel)]="trajet.dte"></ion-datetime> <ion-datetime displayFormat="MMM DD, YYYY HH:mm" [(ngModel)]="trajet.dte">Date de voyage :</ion-datetime>
+                              </ion-item>
+                              <ion-item>
+                                <ion-label position="floating"><ion-icon name="options-outline"></ion-icon><p>Nombres de place</p></ion-label>
+                                <ion-input  type="text" [(ngModel)]="trajet.nbre_place"></ion-input>
+                            </ion-item>
+                          <ion-item>
+                            <ion-label position="floating"><ion-icon name="options-outline"></ion-icon><p>prix d'une place</p></ion-label>
+                            <ion-input  ion-input type="text" [(ngModel)]="trajet.prix"></ion-input>
+                        </ion-item>
+                      
+                                <ion-item  lines="none">
+                                    <ion-button  (click)="add_trajets()" slot="start">Ok</ion-button>
+                                </ion-item>
+
+
+                            
+                              </div>
+
+                              <!--rechercher un trajet-->
+
+
+                              <!--publication des trajet -->
+
+                              <div  >
+                              
+                              <ion-item *ngFor="let traj of trajets">
+                                <div *ngFor="let tra of agences">
+                                  <div  *ngIf="traj.adm === tra.adm">
+                                    <ion-item lines="none">
+                                      <ion-button slot="start"  fill="clear"> <h4>{{traj.debut}},{{traj.fin}}</h4></ion-button>
+                                      <ion-button slot="end"  fill="clear"> <h4>{{traj.prix}} </h4><i>frcfa</i>  </ion-button>
+                                    </ion-item>     
+                                            <ion-item  text-wrap lines="nones" >
+                                                   <div id="bordure">
+                                                    <ion-avatar slot="start">
+                                                      <img [src]="tra.photoo"/>
+                                                    </ion-avatar>
+                                                  </div>
+                                                  <label text-wrap>
+                                                          <p text-wrap>Date de voyage :{{traj.dte}}
+                                                       | {{traj.nbre_place}}  place
+                                                         {{traj.adm}} </p> 
+                                                          {{tra.nom}}
+                                                                                       
+                                                  </label>
+                                                  <ion-button (click)="affiche_trajet(traj)" slot="end" color="warning" size="small">Go -></ion-button>
+                                                </ion-item>
+
+                                              
+                                         
+                                          
+                                   </div>
+                                  </div>
+                                </ion-item>
+                              
+                               
+                        </div>
+
+
+
+
+
+
+
+
+
+                              <!--publication des trajet-->
+                </div> 
+
+          
+                 
+
+   </div> 
+   <div *ngIf="!first_stape">
+   
+                <div *ngIf="connected_" >
+                  <ion-item>
+                    <ion-label><p>prix du trajet</p><i>{{trajet.prix}} franc cfa</i></ion-label>
+                  </ion-item>
+                  <ion-item>
+                    <ion-label><p>places dispo</p><i>{{trajet.nbre_place}}</i></ion-label>
+                  </ion-item>
+                  <ion-item>
+                    <ion-label><p>Date et heure</p><i>{{trajet.dte}}</i></ion-label>
+                  </ion-item>
+                  <ion-item>
+                    <i> <ion-label><p>nom de l'agence</p>avenir voyage</ion-label></i>
+                  </ion-item>
+                  <form [formGroup]="directionForm" (ngSubmit)="calculateAndDisplayRoute(directionForm.value)">
+                              <ion-item>
+                                <ion-label position="floating"><p>Source</p></ion-label>
+                                <ion-input formControlName="source" value={{trajet.debut}}><i></i></ion-input>
+                              </ion-item>
+                              <ion-item>
+                                <ion-label position="floating"><p>Destination</p></ion-label>
+                                <ion-input formControlName="destination" value={{trajet.fin}}><i></i></ion-input>
+                              </ion-item>
+                              <ion-item>
+                                    <ion-button expand="full" shape="round" fill="outline" >Procédé au payement</ion-button>
+                              </ion-item>
+                              <ion-item>
+                                    <ion-button expand="full"  (click)="close_reservation()" shape="round"  fill="outline">Annuler la reservation</ion-button>
+                              </ion-item>
+                              <ion-item>
+                                    <ion-button expand="full"  type="submit"  shape="round" fill="outline" >Get Direction</ion-button>
+                              </ion-item>
+                               
+                  </form>
+            </div>
+                 
+
+   </div>  
+   <div #mapElement class="map"  ></div>                        
+                
+</ion-content>
+
